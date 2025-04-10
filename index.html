@@ -2,6 +2,62 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <title>Stable AR Video</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden">
+    <a-scene embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+      <a-assets>
+        <video
+          id="my-video"
+          src="video.mp4"
+          loop
+          muted
+          playsinline
+          webkit-playsinline
+        ></video>
+      </a-assets>
+
+      <a-marker
+        type="pattern"
+        url="pattern-Conexra.patt"
+        smooth="true"
+        smoothCount="10"
+        smoothTolerance="0.01"
+        smoothThreshold="5"
+      >
+        <a-entity position="0 0 0">
+          <a-video
+            src="#my-video"
+            width="6"
+            height="3.375"
+            position="0 0 1"
+            rotation="0 0 0"
+          ></a-video>
+        </a-entity>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+      // Play on user interaction (required on mobile)
+      window.addEventListener('click', () => {
+        const video = document.querySelector('#my-video');
+        if (video && video.paused) {
+          video.play();
+        }
+      });
+    </script>
+  </body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
     <title>Big Centered AR Video</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
@@ -42,4 +98,4 @@
       });
     </script>
   </body>
-</html>
+</html> -->
